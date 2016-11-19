@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4ConsoleApp", "Connect4ConsoleApp\Connect4ConsoleApp.csproj", "{B37BE732-CDFB-490C-AAA8-CDB84BC08C7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneDimGarageConsoleApp", "OneDimGarageConsoleApp\OneDimGarageConsoleApp.csproj", "{FFB9D7FA-116E-44C8-B87A-7F61B63CE634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessConsoleApp", "ChessConsoleApp\ChessConsoleApp.csproj", "{4DCD3036-E30D-4AB1-937E-71AE97C3987E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B37BE732-CDFB-490C-AAA8-CDB84BC08C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B37BE732-CDFB-490C-AAA8-CDB84BC08C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B37BE732-CDFB-490C-AAA8-CDB84BC08C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB9D7FA-116E-44C8-B87A-7F61B63CE634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB9D7FA-116E-44C8-B87A-7F61B63CE634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB9D7FA-116E-44C8-B87A-7F61B63CE634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB9D7FA-116E-44C8-B87A-7F61B63CE634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DCD3036-E30D-4AB1-937E-71AE97C3987E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DCD3036-E30D-4AB1-937E-71AE97C3987E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DCD3036-E30D-4AB1-937E-71AE97C3987E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DCD3036-E30D-4AB1-937E-71AE97C3987E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
