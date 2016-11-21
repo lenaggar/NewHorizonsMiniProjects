@@ -42,11 +42,14 @@ namespace ChessConsoleApp
             Player player1 = new Player(name1, color1);
             Player player2 = new Player(name2, color2);
 
+            // isFirstMove = true
+            bool isFirstMove = true;
+
             // creating the gameboard array with all the peices in the right places
-            Piece[,] gameBoard = game.init(color1, color2);
+            Piece[,] gameBoard = game.init(player1.color, player2.color);
 
             // start GAME LOOP with the board, the players as parameters
-            game.playGame(gameBoard, player1, player2);
+            game.playGame(gameBoard, player1, player2, isFirstMove);
         }
     }
     class ChessBoard
@@ -163,51 +166,119 @@ namespace ChessConsoleApp
             // board index at the bottom
             Console.Write("\n      a      b      c      d      e      f      g      h\n");
         }
-        public void playGame(Piece[,] arr, Player p1, Player p2)
+        public void playGame(Piece[,] arr, Player p1, Player p2, bool isFirstMove)
         {
+            // draw the board
             boardDraw(arr);
 
-            Player currentPlayer = (p1.color == 'w') ? p1 : p2;
+            // set current player
+            Player currentPlayer;
+            if (isFirstMove)
+                currentPlayer = (p1.color == 'w') ? p1 : p2;
+            else
+                currentPlayer = (currentPlayer == p2) ? p1 : p2;
+
+            // take "move from" from user
             Console.Write("\nWanna move a piece {0}?\n type its position on board (eg. \'d4\'):  > ", currentPlayer.name);
             string moveFrom = Console.ReadLine().ToLower();
-            while (!validSquare(moveFrom))
+            while (!isValidSquare(moveFrom))
             {
                 boardDraw(arr);
                 Console.Write("\nPlease, {0}, enter a valid position (eg. \'d4\'):  > ", currentPlayer.name);
-                moveFrom = Console.ReadLine();
+                moveFrom = Console.ReadLine().ToLower();
             }
 
-            convertToProperIndex (moveFrom);
+            // convert to proper array index
+            string moveFromIndex = convertToProperIndex(moveFrom);
+            int moveFromIndexCol = int.Parse(moveFromIndex.Substring(0, 1));
+            int moveFromIndexRow = int.Parse(moveFromIndex.Substring(1, 2));
+
+            Piece currentPiece = arr[moveFromIndexCol, moveFromIndexRow];
+
+            while (!ifPieceExists(currentPiece))
+            {
+                Console.Write("\nPlease, {0}, enter a valid position (eg. \'d4\'):  > ", currentPlayer.name);
+            }
+
+            while (!ifPieceIsMine(currentPiece, currentPlayer))
+            {
+
+            }
 
 
+            while (true)
+            {
+                // draw the board
+                boardDraw(arr);
+
+
+
+
+            }
 
 
 
             Console.Write("OK {0}, and where do you wanna move?\n type the position:  > ", currentPlayer.name);
             string moveTo = Console.ReadLine().ToLower();
-            validSquare(moveTo);
+            isValidSquare(moveTo);
 
 
 
 
 
         }
-        public bool validSquare(string p)
+        public int colorSelector()
+        {
+            var rnd = new Random();
+            return rnd.Next(1, 3);
+        }
+        public bool isValidSquare(string p)
         {
             char col = Convert.ToChar(p.Substring(0, 1));
             int row = int.Parse(p.Substring(1, 2));
             bool check = (col >= 'a' && col <= 'h' && row >= 1 && row <= 8);
             return check;
         }
-        public int convertToProperIndex (string p)
+        public string convertToProperIndex (string p)
         {
-
-            return 15;
+            string col,
+                   row = (int.Parse(p.Substring(1,2)) - 1).ToString();
+            switch (p.Substring(0,1))
+            {
+                case "a":
+                    col = "0";
+                    break;
+                case "b":
+                    col = "1";
+                    break;
+                case "c":
+                    col = "2";
+                    break;
+                case "d":
+                    col = "3";
+                    break;
+                case "e":
+                    col = "4";
+                    break;
+                case "f":
+                    col = "5";
+                    break;
+                case "g":
+                    col = "6";
+                    break;
+                default:
+                    col = "7";
+                    break;
+            }
+            return (col + row);
         }
-        public int colorSelector()
+        public bool ifPieceExists(Piece obj)
         {
-            var rnd = new Random();
-            return rnd.Next(1, 3);
+            return (obj != null) ? true : false;
+        }
+        public bool ifPieceIsMine(Piece obj, Player player)
+        {
+            return (obj.color == player.color) ? true : false;
         }
     }
     class Player
@@ -222,6 +293,7 @@ namespace ChessConsoleApp
     }
     class Piece
     {
+        public char color { get; set; }
         public char symbol { get; set; }
         public void symbolSetter(char c, char objChar)
         {
@@ -281,6 +353,7 @@ namespace ChessConsoleApp
         public King(char c)
         {
             symbolSetter(c, 'k');
+            color = c;
         }
     }
     class Queen : Piece
@@ -288,6 +361,7 @@ namespace ChessConsoleApp
         public Queen(char c)
         {
             symbolSetter(c, 'q');
+            color = c;
         }
     }
     class Rook : Piece
@@ -295,6 +369,7 @@ namespace ChessConsoleApp
         public Rook(char c)
         {
             symbolSetter(c, 'r');
+            color = c;
         }
     }
     class Bishop : Piece
@@ -302,6 +377,7 @@ namespace ChessConsoleApp
         public Bishop(char c)
         {
             symbolSetter(c, 'b');
+            color = c;
         }
     }
     class Knight : Piece
@@ -309,6 +385,7 @@ namespace ChessConsoleApp
         public Knight(char c)
         {
             symbolSetter(c, 'n');
+            color = c;
         }
     }
     class Pawn : Piece
@@ -316,10 +393,7 @@ namespace ChessConsoleApp
         public Pawn(char c)
         {
             symbolSetter(c, 'p');
-        }
-        public bool isLegelMove()
-        {
-            return true;
+            color = c;
         }
         public void move()
         {
